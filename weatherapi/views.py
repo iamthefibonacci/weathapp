@@ -19,13 +19,8 @@ def index(request):
         # get the last item inserted into the database
         weather_request = Weather.objects.last()
 
-        print('Getting weather for ' + weather_request.city + ' for the last ' + str(weather_request.period) + ' days')
-        print('Posting: ' + url.format(weather_request.city, weather_request.period))
         r = requests.get(url.format(weather_request.city, weather_request.period)).json()
 
-        print(r)
-
-        print('Appending today\'s weather...')
         city_weather = {
             'city': weather_request.city,
             'icon': r['current']['condition']['icon'],
@@ -36,7 +31,6 @@ def index(request):
         }
         weather_data.append(city_weather)
 
-        print('Appending weather forecast for next ' + str(len(r['forecast']['forecastday'])) + ' days')
         for x in range(0, len(r['forecast']['forecastday'])):
             city_weather = {
                 'city': weather_request.city,
