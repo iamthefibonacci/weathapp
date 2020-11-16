@@ -1,2 +1,2 @@
-# weatherapp
- This an assessment for Yoyo Wallet Python Dev job.
+# WeathApp
+ This an assessment for a Python Dev job.
