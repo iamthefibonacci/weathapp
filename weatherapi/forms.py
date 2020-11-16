@@ -8,6 +8,6 @@ class WeatherForm(ModelForm):
         model = Weather
         fields = ['city', 'period']
         widgets = {
-            'city': TextInput(attrs={'class': 'input', 'placeholder': 'City Name'}),
+            'city': TextInput(attrs={'class': 'input', 'placeholder': 'City'}),
             'period': TextInput(attrs={'class': 'input', 'placeholder': 'Period'})
         }
