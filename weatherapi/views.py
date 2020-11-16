@@ -7,7 +7,7 @@ from .models import Weather
 
 def index(request):
     url = 'http://api.weatherapi.com/v1/forecast.json?key=6b8a4fcbb4ac423f9b7195355201311&q={}&days={}'
-    
+ 
     form = WeatherForm()
 
     weather_data = []
@@ -48,7 +48,8 @@ def index(request):
                 'min_temp': r['forecast']['forecastday'][x]['day']['mintemp_c'],
                 'median_temp': round((r['forecast']['forecastday'][x]['day']['mintemp_c'] +
                                       r['forecast']['forecastday'][x]['day']['maxtemp_c']) / 2, 1),
-                }
+                'humidity': r['forecast']['forecastday'][x]['hour'][0]['humidity'],
+            }
             weather_data.append(city_weather)
 
     context = {'weather_data': weather_data, 'form': form}

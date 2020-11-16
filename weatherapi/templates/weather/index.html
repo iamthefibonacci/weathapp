@@ -5,51 +5,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>WeathApp API</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
-
+    <title>WeatherApp API</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css"/>
 </head>
 
 <body>
-    <section>
-        <div >
-            <div class="container">
-                <div style="text-align: center; color:green;">
+<section>
+    <div>
+        <div class="container">
+           <div style="text-align: center; color:green;">
                     <br>
-                        <h1><B>Welcome to WeathApp</B></h1>
-                </div>
+                    <h1><B>Welcome to WeathApp</B></h1>
             </div>
         </div>
-    </section>
-    <section class="section">
-        <div class="container">
-            <div class="columns">
-                <div class="column is-offset-4 is-4">
-                    <form method="POST">
-                        {% csrf_token %}
-                        <div class="field has-addons">
-                            <div class="control is-expanded">
-                                {{ form.city }}
-                            </div>
-                            <div class="control is-expanded">
-                                {{ form.period }} <h1>You can only forecast 3 days.</h1>
-                            </div>
-                            <div class="control">
-                                <button type="submit" class="button is-info">
-                                    Submit
-                                </button>
-                            </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column is-offset-4 is-4">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="field has-addons">
+                        <div class="control is-expanded">
+                            {{ form.city }}
                         </div>
-                    </form>
-                </div>
+                        <div class="control is-expanded">
+                            {{ form.period }} 
+                        </div>
+                        <div class="control">
+                            <button type="submit" class="button is-info">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-    </section> 
-    <section class="section">
-        <div class="container">
-            <div class="columns">
-                <div class="column is-offset-4 is-4">
-                    {% for city_weather in weather_data %}
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column is-offset-4 is-4">
+                {% for city_weather in weather_data %}
                     <div class="box">
                         <article class="media">
                             <div class="media-left">
@@ -60,12 +59,17 @@
                             <div class="media-content">
                                 <div class="content">
                                     <p>
-                                        <span class="title">{{ city_weather.city }} : {{ city_weather.date }}</span>
-                                        <br>
+                                        <span class="title">{{ city_weather.city }} : {{ city_weather.date }}<br></span>
                                         {% if city_weather.temperature %}
-                                            <span class="subtitle">{{ city_weather.temperature }}°C</span> {% endif %}
-                                        {% if city_weather.average_temp %} <br>Average Temperature:
-                                            {{ city_weather.average_temp }}°C {% endif %}
+                                            <span class="subtitle">
+                                                <br>Current Temperature: {{ city_weather.temperature }}°C
+                                            </span>
+                                        {% endif %}
+                                        {% if city_weather.average_temp %}
+                                            <span>
+                                                <br>Average Temperature: {{ city_weather.average_temp }}°C
+                                            </span>
+                                        {% endif %}
                                         {% if city_weather.max_temp %} <br>Maximum Temperature:
                                             {{ city_weather.max_temp }}°C {% endif %}
                                         {% if city_weather.min_temp %} <br>Minimum Temperature:
@@ -79,13 +83,13 @@
                             </div>
                         </article>
                     </div>
-                    {% endfor %}
-                </div>
+                {% endfor %}
             </div>
         </div>
-    </section>
-    <footer class="footer">
-    </footer>
+    </div>
+</section>
+<footer class="footer">
+</footer>
 </body>
 
 </html>
