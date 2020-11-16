@@ -7,9 +7,7 @@ from .models import Weather
 
 def index(request):
     url = 'http://api.weatherapi.com/v1/forecast.json?key=6b8a4fcbb4ac423f9b7195355201311&q={}&days={}'
-    # api.openweathermap.org/data/2.5/forecast/daily?q=london&cnt=7&appid=c2a062459fc88416e6f4ecdac9217cb0
-    # http://api.openweathermap.org/data/2.5/weather?q={}&appid=c2a062459fc88416e6f4ecdac9217cb0
-
+    
     form = WeatherForm()
 
     weather_data = []
@@ -18,13 +16,8 @@ def index(request):
         form = WeatherForm(request.POST)
         form.save()
 
-        # print(form.city)
-        # print(form.period)
-
         # get the last item inserted into the database
         weather_request = Weather.objects.last()
-
-        # for w_request in weather_request:
 
         print('Getting weather for ' + weather_request.city + ' for the last ' + str(weather_request.period) + ' days')
         print('Posting: ' + url.format(weather_request.city, weather_request.period))
@@ -55,16 +48,8 @@ def index(request):
                 'min_temp': r['forecast']['forecastday'][x]['day']['mintemp_c'],
                 'median_temp': round((r['forecast']['forecastday'][x]['day']['mintemp_c'] +
                                       r['forecast']['forecastday'][x]['day']['maxtemp_c']) / 2, 1),
-                # 'description': r['weather'][0]['description'],
-                # 'humidity': r['main']['humidity'],
-                # 'icon': r['weather'][0]['icon'],
-            }
+                }
             weather_data.append(city_weather)
-
-        #   conn = sqlite3.connect('db.sqlite3')
-        #   c = conn.cursor()
-        #   c.execute('''insert into weatherapi_humdity values(?)''', (json.dumps(r['main']['humidity']),
-        #                                                            conn.commit()))
 
     context = {'weather_data': weather_data, 'form': form}
     return render(request, 'weather/index.html', context)
