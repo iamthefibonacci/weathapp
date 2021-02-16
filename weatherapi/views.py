@@ -1,5 +1,6 @@
 import requests
-from django.shortcuts import render 
+from django.shortcuts import render
+
 from .forms import WeatherForm
 from .models import Weather
 
